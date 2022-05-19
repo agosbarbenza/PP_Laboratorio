@@ -68,3 +68,17 @@ void printLocalidad(Localidad localidad) {
 	printf("\n%3d %13s", localidad.id,
 			localidad.localidad);
 }
+
+//void hardCodeLocalidad(Localidad list[], int len) {
+//	int idLocalidad[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10 };
+//	char localidad[][51] = { "Caba", "Campana", "Quilmes", "Dolores", "Lincoln",
+//			"Brandsen", "Escobar", "Junin", "Zarate", "Tandil"};
+//	int i;
+//
+//	for (i = 0; i < len; i++) {
+//		list[i].id = idLocalidad[i];
+//		strcpy(list[i].localidad, localidad[i]);
+//		list[i].isEmpty = TAKEN;
+//	}
+//
+//}

@@ -25,38 +25,15 @@
 #define Q_CENSISTAS 20
 #define Q_LOCALIDADES 10
 #define Q_HARDCODE 15
-#define Q_ZONAS 15
+#define Q_ZONAS 10
 
-//typedef struct{
-//	int id;
-//	int idCensista;
-//	char calleUno[51];
-//	char calleDos[51];
-//	char calleTres[51];
-//	char calleCuatro[51];
-//	int localidad;
-//	char estado[10];
-//	int isEmpty;
-//}Zona;
-
-
-
-//	int id;
-//	int idCensista;
-//	char calleUno[51];
-//	char calleDos[51];
-//	char calleTres[51];
-//	char calleCuatro[51];
-//	int localidad;
-//	char estado[10];
-//	int cantInSitu;
-//	int cantVirtual;
-//	int cantAusentes;
-//	int isEmpty;
 int main(void) {
 	setbuf(stdout, NULL);
 
 	Censista arrayCensistas[Q_CENSISTAS];
+//	Localidad arrayLocalidades[Q_LOCALIDADES];
+//	Zona arrayZonas[Q_ZONAS];
+
 	Localidad arrayLocalidades[Q_LOCALIDADES] = { { 1, "Caba", TAKEN }, { 2,
 			"Campana", TAKEN }, { 3, "Quilmes", TAKEN },
 			{ 4, "Dolores", TAKEN }, { 5, "Lincoln", TAKEN }, { 6, "Brandsen",
@@ -76,7 +53,10 @@ int main(void) {
 	};
 
 	initCensistas(arrayCensistas, Q_CENSISTAS);
+
 	hardCodeCensistas(arrayCensistas, Q_HARDCODE);
+//	hardCodeLocalidad(arrayLocalidades, Q_LOCALIDADES);
+//	hardCodeZonas(arrayZonas, Q_ZONAS);
 	int option;
 	//Censista
 	int incrementalId = 999;

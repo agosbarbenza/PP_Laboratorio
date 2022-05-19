@@ -45,6 +45,26 @@ int findZoneById(Zona list[], int len, int id) {
 	return resultFind;
 }
 
+//int findCensistaEnZona(Zona list[], int len, Censista listCensista[], int lenCensista, int id) {
+//	int resultFind = -1;
+//	int i;
+//	int j;
+//	if (list != NULL && len > 0) {
+//		for (i = 0; i < len; i++) {
+//			for(j=0; j<lenCensista;j++){
+//				if (list[i].id == id && listCensista[j].id) {
+//								resultFind = i;
+//								break;
+//							}
+//			}
+//
+//		}
+//	}
+//
+//	return resultFind;
+//}
+
+
 int findZoneEmptyIndex(Zona list[], int len) {
 	int index = -1;
 	int i;
@@ -464,3 +484,48 @@ int printZonaPendiente(Zona listZonas[], int lenZonas,
 	}
 	return result;
 }
+
+
+
+//void hardCodeZonas(Zona list[], int len) {
+//	int idZona[] = { 1500, 1501, 0, 1503, 1504, 0, 1506, 1507, 1508,
+//				1509 };
+//	int idCensista[] = { 10500, 10501, 10502, 10503, 10504, 10505, 10506, 10507, 10508,
+//			10509 };
+//	char calle1[][51] = { "Cordoba", "Malabia", "Tucuman", "Jacob", "Lamadrid",
+//			"Pinto", "Belgrano", "Beruti", "Marconi", "Caseros"};
+//
+//	char calle2[][51] = { "Bonpland", "Guemes", "Colon", "Brown", "9 de Julio",
+//				"Belgrano", "Avellaneda", "Pueyrredon", "Pellegrini", "Catulo Castillo"};
+//
+//	char calle3[][51] = { "Carranza", "Oro", "Alsina", "Paso", "Cerrito",
+//				"San Martin", "Bolivar", "Alberti", "Echeverria", "4 de noviembre"};
+//
+//	char calle4[][51] = { "Gorriti", "Santa Fe", "La Rioja", "Sivori", "Moreno",
+//				"San Lorenzo", "19 de Julio", "Ferrari", "Riobamba", "Almafuerte"};
+//
+//	int localidad[]={ 1, 1, 3, 2, 4, 10, 9, 6, 5, 1 };
+//	char estado[][11]={"PENDIENTE", "FINALIZADO", "PENDIENTE", "PENDIENTE", "PENDIENTE", "PENDIENTE", "PENDIENTE", "FINALIZADO", "FINALIZADO", "PENDIENTE"};
+//	int cantInSitu[]={50,80,60,45, 100,66,45,88,9,99};
+//	int cantVirtual[]={100,20,10,50,150,70,55,50,10,80};
+//	int cantAusentes[]={6,10,5,6,6,4,1,3,5,5};
+//
+//
+//	int i;
+//
+//	for (i = 0; i < len; i++) {
+//		list[i].id = idZona[i];
+//		list[i].id = idCensista[i];
+//		strcpy(list[i].calleUno, calle1[i]);
+//		strcpy(list[i].calleDos, calle2[i]);
+//		strcpy(list[i].calleTres, calle3[i]);
+//		strcpy(list[i].calleCuatro, calle4[i]);
+//		list[i].localidad = localidad[i];
+//		strcpy(list[i].estado, estado[i]);
+//		list[i].cantInSitu = cantInSitu[i];
+//		list[i].cantVirtual = cantVirtual[i];
+//		list[i].cantAusentes = cantAusentes[i];
+//		list[i].isEmpty = TAKEN;
+//	}
+//
+//}

@@ -14,6 +14,7 @@ typedef struct{
 	int isEmpty;
 }Localidad;
 
+void hardCodeLocalidad(Localidad list[], int len);
 int findLocationById(Localidad list[], int len, int id);
 int printLocalidades(Localidad listLocations[], int lenLocations);
 void printLocalidad(Localidad localidad) ;

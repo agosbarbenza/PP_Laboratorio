@@ -27,6 +27,7 @@ typedef struct{
 	int isEmpty;
 }Zona;
 
+void hardCodeZonas(Zona list[], int len);
 int initZone(Zona list[], int len);
 int findZoneById(Zona list[], int len, int id);
 int findZoneEmptyIndex(Zona list[], int len);
