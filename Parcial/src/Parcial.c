@@ -18,6 +18,7 @@
 #include "Direccion.h"
 #include "FechaNacimiento.h"
 #include "Censista.h"
+
 #include "Utn.h"
 
 #define EMPTY 0
@@ -35,22 +36,26 @@ int main(void) {
 //	Zona arrayZonas[Q_ZONAS];
 
 	Localidad arrayLocalidades[Q_LOCALIDADES] = { { 1, "Caba", TAKEN }, { 2,
-			"Campana", TAKEN }, { 3, "Quilmes", TAKEN },
-			{ 4, "Dolores", TAKEN }, { 5, "Lincoln", TAKEN }, { 6, "Brandsen",
-					TAKEN }, { 7, "Escobar", TAKEN }, { 8, "Junin", TAKEN }, {
-					9, "Zarate", TAKEN }, { 10, "Tandil", TAKEN } };
-	Zona arrayZonas[Q_ZONAS]={
-			{10500, 1500, "Cordoba", "Bonpland", "Carranza", "Gorriti", 1, "PENDIENTE", 50, 100, 6, TAKEN, },
-			{10501, 1501, "Malabia", "Guemes", "Oro", "Santa Fe", 1, "FINALIZADO", 80, 20, 10, TAKEN},
-			{10502, 0, "Tucuman", "Colon", "Alsina", "La Rioja", 3, "PENDIENTE", 60, 10, 5, TAKEN },
-			{10503, 1503, "Jacob", "Brown", "Paso", "Sivori", 2, "PENDIENTE", 45, 50, 6, TAKEN},
-			{10504, 1504, "Lamadrid", "9 de Julio", "Cerrito", "Moreno", 4, "PENDIENTE", 100, 150, 6, TAKEN},
-			{10505, 0, "Pinto", "Belgrano", "San Martin", "San Lorenzo", 10, "PENDIENTE", 66, 70, 4, TAKEN},
-			{10506, 1506, "Belgrano", "Avellaneda", "Bolivar", "19 de Julio", 9, "PENDIENTE", 45, 55, 1,  TAKEN},
-			{10507, 1507, "Beruti", "Pueyrredon", "Alberti", "Ferrari", 6, "FINALIZADO", 88, 50, 3,TAKEN},
-			{10508, 1508, "Marconi", "Pelegrini", "Echeverria", "Riobamba", 5, "FINALIZADO", 9, 10, 5, TAKEN},
-			{10509, 1509, "Caseros", "Catulo Castillo", "24 de noviembre", "Almafuerte", 1, "PENDIENTE", 99, 80, 5,  TAKEN}
-	};
+			"Avellaneda", TAKEN }, { 3, "Quilmes", TAKEN }, { 4, "Dolores",
+	TAKEN }, { 5, "Lincoln", TAKEN }, { 6, "Banfield",
+	TAKEN }, { 7, "Lanus", TAKEN }, { 8, "Junin", TAKEN }, { 9,
+			"Lomas de Zamora", TAKEN }, { 10, "Tandil", TAKEN } };
+	Zona arrayZonas[Q_ZONAS] = { { 10500, 1500, "Cordoba", "Bonpland",
+			"Carranza", "Gorriti", 1, "PENDIENTE", 50, 100, 6, TAKEN, }, {
+			10501, 1501, "Malabia", "Guemes", "Oro", "Santa Fe", 1,
+			"FINALIZADO", 80, 20, 10, TAKEN }, { 10502, 0, "Tucuman", "Colon",
+			"Alsina", "La Rioja", 3, "PENDIENTE", 60, 10, 5, TAKEN }, { 10503,
+			1503, "Jacob", "Brown", "Paso", "Sivori", 2, "PENDIENTE", 45, 50, 6,
+			TAKEN }, { 10504, 1504, "Lamadrid", "9 de Julio", "Cerrito",
+			"Moreno", 4, "PENDIENTE", 100, 150, 6, TAKEN }, { 10505, 0, "Pinto",
+			"Belgrano", "San Martin", "San Lorenzo", 10, "PENDIENTE", 66, 70, 4,
+			TAKEN }, { 10506, 1506, "Belgrano", "Avellaneda", "Bolivar",
+			"19 de Julio", 9, "PENDIENTE", 45, 55, 1, TAKEN }, { 10507, 1507,
+			"Beruti", "Pueyrredon", "Alberti", "Ferrari", 6, "FINALIZADO", 88,
+			50, 3, TAKEN }, { 10508, 1508, "Marconi", "Pelegrini", "Echeverria",
+			"Riobamba", 5, "FINALIZADO", 9, 10, 5, TAKEN }, { 10509, 1509,
+			"Caseros", "Catulo Castillo", "24 de noviembre", "Almafuerte", 1,
+			"PENDIENTE", 99, 80, 5, TAKEN } };
 
 	initCensistas(arrayCensistas, Q_CENSISTAS);
 
@@ -77,12 +82,13 @@ int main(void) {
 	int location;
 	char status[10];
 
-
 	int idToRemove;
 	int idToModify;
-//	int informOption;
-//	int orderCriteria1;
-//	int orderCriteria2;
+	int informOption;
+	int orderCriteria1;
+
+
+	int count;
 
 	do {
 		utn_showMenu("Sistema de Administracion de Censistas",
@@ -90,7 +96,7 @@ int main(void) {
 				"Cargar zona", "Asignar zona a censar", "Carga de datos",
 				"Mostrar censistas", "Mostrar zonas", "Salir");
 		utn_getInt(&option, "\nIngrese una opción: ",
-				"\nError! La opcion ingresada no es valida.\n", 6, 1, 2);
+				"\nError! La opcion ingresada no es valida.\n", 10, 1, 2);
 		switch (option) {
 		case 1:
 			if (getCensistaData(arrayCensistas, Q_CENSISTAS, &incrementalId,
@@ -153,41 +159,85 @@ int main(void) {
 			;
 			break;
 		case 5:
-			if (assignZone(arrayLocalidades, Q_LOCALIDADES,arrayZonas,
-					Q_ZONAS, arrayCensistas, Q_CENSISTAS) == 0){
+			if (assignZone(arrayLocalidades, Q_LOCALIDADES, arrayZonas,
+			Q_ZONAS, arrayCensistas, Q_CENSISTAS) == 0) {
 				printf("\nCensista asignado con éxito a la zona.");
-			}else{
-				printf("\nError, no se ha podido asignar un censista a la zona.");
+			} else {
+				printf(
+						"\nError, no se ha podido asignar un censista a la zona.");
 			}
 			break;
 		case 6:
-			if(dataLoad(arrayLocalidades, Q_LOCALIDADES,arrayZonas,
-					Q_ZONAS, arrayCensistas, Q_CENSISTAS) == 0){
+			if (dataLoad(arrayLocalidades, Q_LOCALIDADES, arrayZonas,
+			Q_ZONAS, arrayCensistas, Q_CENSISTAS) == 0) {
 				printf("\nLa carga de datos se realizó correctamente.");
 
-			}else{
+			} else {
 				printf("\nError en la carga de datos");
-			};
+			}
+			;
 			break;
 		case 7:
-			if(printCensistas(arrayCensistas, Q_CENSISTAS) == 0) {
-							printf("\nCensistas mostrados correctamente");
-						}else{
-							printf("\nNo se pudo mostrar a los censistas. Vuelva a intentarlo");
-						}
+			if (printCensistas(arrayCensistas, Q_CENSISTAS) == 0) {
+				printf("\nCensistas mostrados correctamente");
+			} else {
+				printf(
+						"\nNo se pudo mostrar a los censistas. Vuelva a intentarlo");
+			}
 			break;
 		case 8:
-			if(printZonas(arrayZonas, Q_ZONAS, arrayLocalidades, Q_LOCALIDADES, arrayCensistas, Q_CENSISTAS) == 0){
+			if (printZonas(arrayZonas, Q_ZONAS, arrayLocalidades, Q_LOCALIDADES,
+					arrayCensistas, Q_CENSISTAS) == 0) {
 				printf("\nZonas mostradas correctamente");
-			}else{
+			} else {
 				printf("\nNo se mostraron las zonas. Vuelva a intentarlo.");
-			};
+			}
+			;
 			break;
 		case 9:
+			subMenuInform();
+			if (utn_getInt(&informOption, "\nIngrese la opcion: ",
+					"\nError! Opcion no valida.\n", 3, 1, 2) == 0) {
+				switch (informOption) {
+				case 1:
+					if(printCensistaActivoPendiente(arrayCensistas, Q_CENSISTAS,
+							arrayZonas, Q_ZONAS, &count) == 0){
+						printf("\nCantidad de Censistas con estado ACTIVO y Zona PENDIENTE: %d", count);
+
+					}else{
+						printf("\nError");
+					}
+
+					break;
+				case 2:
+					if (utn_getInt(&orderCriteria1,
+							"\nIngrese el criterio de ordenamiento\n1 para ASCENDENTE",
+							"\nError! Opcion no valida.\n", 1, 1, 2) == 0) {
+						if (sortCensistas(arrayCensistas, Q_CENSISTAS, arrayLocalidades, Q_LOCALIDADES, arrayZonas, Q_ZONAS, orderCriteria1)
+								== 0) {
+							printf("\nCensistas ordenados con éxito");
+						} else {
+							printf(
+									"\n\nNo se ha podido ordenar a los censistas.");
+						}
+					}
+
+					break;
+				case 3:
+
+				}
+
+			} else {
+				printf("\n\nNo se ha podido ordenar a los censistas.");
+			}
+			;
+
+			break;
+		case 10:
 			printf("\n\nSistema cerrado con éxito.");
 			break;
 		}
-	} while (option != 9);
+	} while (option != 10);
 
 	return EXIT_SUCCESS;
 }

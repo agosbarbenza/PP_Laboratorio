@@ -12,9 +12,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include "Direccion.h"
-#include "FechaNacimiento.h"
+
 #include "Censista.h"
+#include "Zona.h"
+#include "FechaNacimiento.h"
+#include "Direccion.h"
+
+
 
 #include "Utn.h"
 
@@ -32,7 +36,7 @@ void subMenuModify(void) {
 }
 void subMenuInform(void) {
 	printf(
-			"\nInformar: \n1)Listado de pasajeros ordenados alfabeticamente por Apellido y Tipo de pasajero\n2)Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio promedio\n3)Listado de pasajeros por código de vuelo y estados de vuelo 'ACTIVO'");
+			"\nInformar: \n 1)Informar cantidad de censistas en estado Activo con zona Pendiente. \n2)Mostrar el listado de censistas de Avellaneda, Lanús, Lomas de Zamora o Banfield ordenados alfabéticamente por apellido y nombre. \n3)Informar nombre de localidad con más casas ausentes. \n4)Informar el censista cuya zona fue la más censada (total censados presencial y virtual)\n5)Informar el promedio de censos por censista/zona.\n");
 }
 
 void subMenuOrderCriteria(void) {
@@ -293,9 +297,9 @@ void hardCodeCensistas(Censista list[], int len) {
 
 	{ 444, "Libertador" } };
 
-	char status[][10] = { "ACTIVO", "INACTIVO", "ACTIVO", "INACTIVO",
-				"ACTIVO", "INACTIVO", "ACTIVO", "INACTIVO", "ACTIVO", "ACTIVO", "ACTIVO",
-				"ACTIVO", "ACTIVO", "INACTIVO", "ACTIVO" };
+	char status[][10] = { "ACTIVO", "INACTIVO", "ACTIVO", "INACTIVO", "ACTIVO",
+			"INACTIVO", "ACTIVO", "INACTIVO", "ACTIVO", "ACTIVO", "ACTIVO",
+			"ACTIVO", "ACTIVO", "INACTIVO", "ACTIVO" };
 	int i;
 
 	for (i = 0; i < len; i++) {
@@ -378,173 +382,77 @@ int modifyCensista(Censista list[], int len, int id) {
 	return resultModify;
 }
 
-//int sortCensistas(Censista listCensista[], int lenCensista, Flight listFlight[],
-//		int lenFlight, int order, int flagByCodeActive) {
-//	int resultSort = -1;
-//	if (listCensista != NULL && lenCensista > 0 && listFlight != NULL
-//			&& lenFlight > 0 && order >= 0) {
-//		switch (order) {
-//		case 1:
-//			sortLowerToHigher(listCensista, lenCensista, listFlight, lenFlight,
-//					flagByCodeActive);
-//			break;
-//		case 2:
-//			sortHigherToLower(listCensista, lenCensista, listFlight, lenFlight,
-//					flagByCodeActive);
-//			break;
-//		}
-//		printCensistas(listCensista, lenCensista, listFlight, lenFlight,
-//				flagByCodeActive);
-//		resultSort = 0;
-//	}
-//	return resultSort;
-//}
-//
-//void sortLowerToHigher(Censista listCensista[], int lenCensista,
-//		Flight listFlight[], int lenFlight, int flagByCodeActive) {
-//	Censista auxCensista;
-//	int resultOrder;
-//	int i;
-//	int j;
-//	if (listCensista != NULL && lenCensista > 0 && listFlight != NULL
-//			&& lenFlight > 0) {
-//		do {
-//			resultOrder = 1;
-//			lenCensista--;
-//			for (i = 0; i < lenCensista; i++) {
-//				for (j = 0; j < lenFlight; j++) {
-//					if (listCensista[i].isEmpty == TAKEN
-//							&& listCensista[i + 1].isEmpty == TAKEN) {
-//						if (flagByCodeActive) {
-//							if (strcmp(listCensista[i].flyCode,
-//									listCensista[i + 1].flyCode) < 0
-//									&& strcmp(listFlight[j].status, "ACTIVO")
-//											== 0) {
-//								auxCensista = listCensista[i];
-//								listCensista[i] = listCensista[i + 1];
-//								listCensista[i + 1] = auxCensista;
-//								resultOrder = 0;
-//							}
-//
-//						} else {
-//							if (strcmp(listCensista[i].lastName,
-//									listCensista[i + 1].lastName) == 0) {
-//								if (strcmp(listCensista[i].flyCode,
-//										listCensista[i + 1].flyCode) > 0) {
-//									auxCensista = listCensista[i];
-//									listCensista[i] = listCensista[i + 1];
-//									listCensista[i + 1] = auxCensista;
-//									resultOrder = 0;
-//								}
-//							} else if (strcmp(listCensista[i].lastName,
-//									listCensista[i + 1].lastName) > 0) {
-//								auxCensista = listCensista[i];
-//								listCensista[i] = listCensista[i + 1];
-//								listCensista[i + 1] = auxCensista;
-//								resultOrder = 0;
-//							}
-//						}
-//					}
-//				}
-//
-//			}
-//
-//		} while (resultOrder == 0);
-//	}
-//
-//}
-//
-//void sortHigherToLower(Censista listCensista[], int lenCensista,
-//		Flight listFlight[], int lenFlight, int flagByCodeActive) {
-//	Censista auxCensista;
-//	int resultOrder;
-//	int i;
-//	int j;
-//	if (listCensista != NULL && lenCensista > 0 && listFlight != NULL
-//			&& lenFlight > 0) {
-//		do {
-//			resultOrder = 1;
-//			lenCensista--;
-//			for (i = 0; i < lenCensista; i++) {
-//				for (j = 0; j < lenFlight; j++) {
-//					if (listCensista[i].isEmpty == TAKEN
-//							&& listCensista[i + 1].isEmpty == TAKEN) {
-//						if (flagByCodeActive) {
-//							if (strcmp(listCensista[i].flyCode,
-//									listCensista[i + 1].flyCode) > 0
-//									&& strcmp(listFlight[j].status, "ACTIVO")
-//											== 0) {
-//								auxCensista = listCensista[i];
-//								listCensista[i] = listCensista[i + 1];
-//								listCensista[i + 1] = auxCensista;
-//								resultOrder = 0;
-//							}
-//
-//						} else {
-//							if (strcmp(listCensista[i].lastName,
-//									listCensista[i + 1].lastName) == 0) {
-//								if (strcmp(listCensista[i].flyCode,
-//										listCensista[i + 1].flyCode) < 0) {
-//									auxCensista = listCensista[i];
-//									listCensista[i] = listCensista[i + 1];
-//									listCensista[i + 1] = auxCensista;
-//									resultOrder = 0;
-//								}
-//							} else if (strcmp(listCensista[i].lastName,
-//									listCensista[i + 1].lastName) < 0) {
-//								auxCensista = listCensista[i];
-//								listCensista[i] = listCensista[i + 1];
-//								listCensista[i + 1] = auxCensista;
-//								resultOrder = 0;
-//							}
-//						}
-//					}
-//				}
-//
-//			}
-//
-//		} while (resultOrder == 0);
-//	}
-//}
+void sortLowerToHigher(Censista listCensista[], int lenCensista,
+		Localidad listLocalidad[], int lenLocalidad, Zona listZona[],
+		int lenZona) {
+	Censista auxCensista;
+	int resultOrder;
+	int i;
+	int j;
+	int k;
+	if (listCensista != NULL && lenCensista > 0) {
+		do {
+			resultOrder = 1;
+			lenCensista--;
+			for (i = 0; i < lenCensista; i++) {
+				for (j = 0; j < lenLocalidad; j++) {
+					for (k = 0; k < lenZona; k++) {
+						if (listCensista[i].isEmpty == TAKEN
+								&& listCensista[i + 1].isEmpty == TAKEN
+								&& listCensista[i].id == listZona[k].idCensista
+								&& (listLocalidad[j].id == listZona[k].localidad)) {
 
-//int calculateAveragePrice(Censista list[], int len) {
-//	int resultCalculate = -1;
-//	float accumulatedPrice = 0;
-//	float averagePrice = 0;
-//	int sumCensistas = 0;
-//	int sumCensistasUpAvgPrice = 0;
-//	int i;
-//
-//	if (list != NULL && len > 0) {
-//
-//		if (checkAtLeastOneRegister(list, len) == 0) {
-//			for (i = 0; i < len; i++) {
-//				if (list[i].isEmpty == TAKEN) {
-//					accumulatedPrice += list[i].price;
-//					sumCensistas++;
-//				}
-//
-//			}
-//			averagePrice = utn_calculateAverage(accumulatedPrice, sumCensistas);
-//
-//			for (i = 0; i < len; i++) {
-//				if (list[i].isEmpty == TAKEN && list[i].price > averagePrice) {
-//					sumCensistasUpAvgPrice++;
-//				}
-//
-//			}
-//			printf("\n==================================================");
-//			printf(
-//					"\nTotal precios: $%.2f\n\nPromedio precios: $%.2f\n\nCantidad de pasajeros que superan el precio promedio: %d",
-//					accumulatedPrice, averagePrice, sumCensistasUpAvgPrice);
-//			printf("\n==================================================");
-//			resultCalculate = 0;
-//		}
-//
-//	}
-//
-//	return resultCalculate;
-//}
+							if (strcmp(listLocalidad[j].localidad, "Avellaneda")
+									== 0
+									|| strcmp(listLocalidad[j].localidad,
+											"Lanus") == 0
+									|| strcmp(listLocalidad[j].localidad,
+											"Banfield") == 0
+									|| strcmp(listLocalidad[j].localidad,
+											"Lomas de Zamora") == 0) {
+								if (strcmp(listCensista[i].lastName,
+										listCensista[i + 1].lastName) == 0) {
+									auxCensista = listCensista[i];
+									listCensista[i] = listCensista[i + 1];
+									listCensista[i + 1] = auxCensista;
+									resultOrder = 0;
+								} else if (strcmp(listCensista[i].lastName,
+										listCensista[i + 1].lastName) > 0) {
+									auxCensista = listCensista[i];
+									listCensista[i] = listCensista[i + 1];
+									listCensista[i + 1] = auxCensista;
+									resultOrder = 0;
+								}
+							}
+
+						}
+					}
+
+				}
+			}
+
+		} while (resultOrder == 0);
+	}
+
+}
+
+int sortCensistas(Censista listCensista[], int lenCensista,
+		Localidad listLocalidad[], int lenLocalidad, Zona listZona[],
+		int lenZona, int order) {
+	int resultSort = -1;
+	if (listCensista != NULL && lenCensista > 0 && order >= 0) {
+		switch (order) {
+		case 1:
+			sortLowerToHigher(listCensista, lenCensista, listLocalidad,
+					lenLocalidad, listZona, lenZona);
+			break;
+		}
+		printCensistas(listCensista, lenCensista);
+		resultSort = 0;
+	}
+	return resultSort;
+}
+
 
 int checkAtLeastOneRegister(Censista list[], int len) {
 	int resultAtLeastOne = -1;
@@ -559,6 +467,27 @@ int checkAtLeastOneRegister(Censista list[], int len) {
 		}
 	}
 	return resultAtLeastOne;
+}
+
+int getCensistaActivoPendiente(Censista listCensista[], int lenCensista,
+		Zona listZona[], int lenZona, int *count) {
+	int result = -1;
+	int i;
+	int k;
+	if (listCensista != NULL && lenCensista > 0 && listZona != NULL
+			&& listZona > 0) {
+		for (i = 0; i < lenCensista; i++) {
+			for (k = 0; k < lenZona; k++) {
+				if (listCensista[i].id == listZona[k].idCensista
+						&& strcmp(listZona[k].estado, "PENDIENTE")
+						&& strcmp(listCensista[i].status, "ACTIVO") == 0) {
+					count++;
+				}
+			}
+		}
+		result = 0;
+	}
+	return result;
 }
 
 #endif /* CENSISTA_C_ */

@@ -8,9 +8,11 @@
 #ifndef ZONA_H_
 #define ZONA_H_
 
+#include "Censista.h"
 #include "Localidad.h"
 #include "Zona.h"
-#include "Censista.h"
+
+
 
 typedef struct{
 	int id;

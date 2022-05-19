@@ -8,8 +8,13 @@
 #ifndef CENSISTA_H_
 #define CENSISTA_H_
 
+
 #include "FechaNacimiento.h"
 #include "Direccion.h"
+#include "Localidad.h"
+#include "Zona.h"
+
+
 
 typedef struct{
 	int id;
@@ -21,6 +26,13 @@ typedef struct{
 	char status[10];
 	int isEmpty;
 }Censista;
+
+
+
+
+
+int getCensistaActivoPendiente(Censista listCensista[], int lenCensista,
+		Zona listZona[], int lenZona, int *count);
 
 /** \brief To indicate that all position in the array are empty,
  * this function put the flag (isEmpty) in TRUE in all
@@ -35,14 +47,6 @@ int initCensistas(Censista [], int );
 
 /** \brief add in a existing list of Censistas the values received as parameters
 * in the first empty position
-* \param list Censista*
-* \param len int
-* \param id int
-* \param name[] char
-* \param lastName[] char
-* \param price float
-* \param typeCensista int
-* \param flycode[] char
 * \return int Return (-1) if Error [Invalid length or NULL pointer or without
 free space] - (0) if Ok
 */
@@ -51,16 +55,6 @@ int addCensista(Censista listCensista[], int lenCensista, int id, char name[],
 
 /** \brief Gets Censista data from user and adds in a existing list of Censistas the values received as parameters
  * in the first empty position
- * \param CensistaList* Censista
- * \param CensistaLen int
- * \param flightList* Flight
- * \param flightLen int
- * \param incrementalId *int
- * \param name[] char
- * \param lastName[] char
- * \param price float
- * \param flyCode[] char
- * \param typeCensista *int
  * \return int Return (-1) if Error [Invalid length or NULL pointer or without
 free space] - (0) if Ok
 */
@@ -102,11 +96,6 @@ void printCensista(Censista Censista);
 
 /** \brief print the content of Censistas array
 *
-* \param listCensista Censista*
-* \param lenCensista int
-* \param listFlight Flight*
-* \param lenFlight int
-* \param onlyActive int
 * \return int
 *
 */
@@ -149,45 +138,33 @@ void subMenuModify(void);
  */
 int modifyCensista(Censista list[], int len, int id);
 
+
+
 /** \brief Sort the elements in the array of Censistas, the argument order
 indicate UP or DOWN order
- *
- * \param listCensista Censista*
- * \param lenCensista int
- * \param listFlight Flight*
- * \param lenFlight int
- * \param order int [1] indicates UP - [0] indicates DOWN
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-//int sortCensistas(Censista listCensista[], int lenCensista,
-//		Flight listFlight[], int lenFlight, int order, int flagByCodeActive);
+int sortCensistas(Censista listCensista[], int lenCensista,
+		Localidad listLocalidad[], int lenLocalidad, Zona listZona[], int lenZona, int order);
+
 
 /** \brief Sort the elements in the array of Censistas from down to up
  *
- * \param listCensista Censista*
- * \param lenCensista int
- * \param listFlight Flight*
- * \param lenFlight int
- * \param flagByCodeActive int
  * \return void
  *
  */
-//void sortLowerToHigher(Censista listCensista[], int lenCensista,
-//		Flight listFlight[], int lenFlight, int flagByCodeActive);
+void sortLowerToHigher(Censista listCensista[], int lenCensista,
+		Localidad listLocalidad[], int lenLocalidad, Zona listZona[],
+		int lenZona);
 
 /** \brief Sort the elements in the array of Censistas from up to down
  *
- * \param listCensista Censista*
- * \param lenCensista int
- * \param listFlight Flight*
- * \param lenFlight int
- * \param flagByCodeActive int
  * \return void
  *
  */
-//void sortHigherToLower(Censista listCensista[], int lenCensista,
-//		Flight listFlight[], int lenFlight, int flagByCodeActive);
+
+
 
 
 /** \brief Shows submenu giving the user inform options
@@ -232,6 +209,9 @@ void subMenuOrderCriteria(void);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
+
+
+
 int checkAtLeastOneRegister(Censista list[], int len);
 
 #endif /* CENSISTA_H_ */
