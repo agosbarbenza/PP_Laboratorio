@@ -25,7 +25,7 @@
 #define Q_CENSISTAS 20
 #define Q_LOCALIDADES 10
 #define Q_HARDCODE 15
-#define Q_ZONAS 10
+#define Q_ZONAS 15
 
 //typedef struct{
 //	int id;
@@ -39,6 +39,20 @@
 //	int isEmpty;
 //}Zona;
 
+
+
+//	int id;
+//	int idCensista;
+//	char calleUno[51];
+//	char calleDos[51];
+//	char calleTres[51];
+//	char calleCuatro[51];
+//	int localidad;
+//	char estado[10];
+//	int cantInSitu;
+//	int cantVirtual;
+//	int cantAusentes;
+//	int isEmpty;
 int main(void) {
 	setbuf(stdout, NULL);
 
@@ -49,16 +63,16 @@ int main(void) {
 					TAKEN }, { 7, "Escobar", TAKEN }, { 8, "Junin", TAKEN }, {
 					9, "Zarate", TAKEN }, { 10, "Tandil", TAKEN } };
 	Zona arrayZonas[Q_ZONAS]={
-			{10500, 0, "Cordoba", "Bonpland", "Carranza", "Gorriti", 1, "PENDIENTE", TAKEN},
-			{10501, 0, "Malabia", "Guemes", "Oro", "Santa Fe", 1, "FINALIZADO", TAKEN},
-			{10502, 0, "Tucuman", "Colon", "Alsina", "La Rioja", 3, "FINALIZADO", TAKEN },
-			{10503, 0, "Jacob", "Brown", "Paso", "Sivori", 2, "PENDIENTE"},
-			{10504, 0, "Lamadrid", "9 de Julio", "Cerrito", "Moreno", 4, "PENDIENTE", TAKEN},
-			{10505, 0, "Pinto", "Belgrano", "San Martin", "San Lorenzo", 10, "FINALIZAOD", TAKEN},
-			{10506, 0, "Belgrano", "Avellaneda", "Bolivar", "19 de Julio", 9, "PENDIENTE", TAKEN},
-			{10507, 0, "Beruti", "Pueyrredon", "Alberti", "Ferrari", 6, "FINALIZADO", TAKEN},
-			{10508, 0, "Marconi", "Pelegrini", "Echeverria", "Riobamba", 5, "FINALIZADO", TAKEN},
-			{10509, 0, "Caseros", "Catulo Castillo", "24 de noviembre", "Almafuerte", 1, "PENDIENTE", TAKEN}
+			{10500, 1500, "Cordoba", "Bonpland", "Carranza", "Gorriti", 1, "PENDIENTE", 50, 100, 6, TAKEN, },
+			{10501, 1501, "Malabia", "Guemes", "Oro", "Santa Fe", 1, "FINALIZADO", 80, 20, 10, TAKEN},
+			{10502, 0, "Tucuman", "Colon", "Alsina", "La Rioja", 3, "PENDIENTE", 60, 10, 5, TAKEN },
+			{10503, 1503, "Jacob", "Brown", "Paso", "Sivori", 2, "PENDIENTE", 45, 50, 6, TAKEN},
+			{10504, 1504, "Lamadrid", "9 de Julio", "Cerrito", "Moreno", 4, "PENDIENTE", 100, 150, 6, TAKEN},
+			{10505, 0, "Pinto", "Belgrano", "San Martin", "San Lorenzo", 10, "PENDIENTE", 66, 70, 4, TAKEN},
+			{10506, 1506, "Belgrano", "Avellaneda", "Bolivar", "19 de Julio", 9, "PENDIENTE", 45, 55, 1,  TAKEN},
+			{10507, 1507, "Beruti", "Pueyrredon", "Alberti", "Ferrari", 6, "FINALIZADO", 88, 50, 3,TAKEN},
+			{10508, 1508, "Marconi", "Pelegrini", "Echeverria", "Riobamba", 5, "FINALIZADO", 9, 10, 5, TAKEN},
+			{10509, 1509, "Caseros", "Catulo Castillo", "24 de noviembre", "Almafuerte", 1, "PENDIENTE", 99, 80, 5,  TAKEN}
 	};
 
 	initCensistas(arrayCensistas, Q_CENSISTAS);
@@ -83,8 +97,7 @@ int main(void) {
 	int location;
 	char status[10];
 
-//	FechaNacimiento date;
-//	Direccion address;
+
 	int idToRemove;
 	int idToModify;
 //	int informOption;
@@ -168,6 +181,13 @@ int main(void) {
 			}
 			break;
 		case 6:
+			if(dataLoad(arrayLocalidades, Q_LOCALIDADES,arrayZonas,
+					Q_ZONAS, arrayCensistas, Q_CENSISTAS) == 0){
+				printf("\nLa carga de datos se realizó correctamente.");
+
+			}else{
+				printf("\nError en la carga de datos");
+			};
 			break;
 		case 7:
 			if(printCensistas(arrayCensistas, Q_CENSISTAS) == 0) {

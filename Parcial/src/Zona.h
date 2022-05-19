@@ -21,6 +21,9 @@ typedef struct{
 	char calleCuatro[51];
 	int localidad;
 	char estado[10];
+	int cantInSitu;
+	int cantVirtual;
+	int cantAusentes;
 	int isEmpty;
 }Zona;
 
@@ -35,4 +38,11 @@ int getZoneData(Localidad locationList[], int locationLen, int *incrementalId,
 		char streetFour[], int *location, char status[]);
 void printZona(Zona zona, Localidad listLocalidad[], int lenLocalidad, Censista listCensista[], int lenCensistas);
 int printZonas(Zona listZona[], int lenZona, Localidad listLocalidad[], int lenLocalidad, Censista listCensista[], int lenCensistas);
+int printZonaPendiente(Zona listZonas[], int lenZonas,
+		Localidad listLocalidad[], int lenLocalidad, Censista listCensista[],
+		int lenCensistas);
+int printZonaSinAsignar(Zona listZona[], int lenZona,
+		Localidad listLocalidad[], int lenLocalidad);
+int dataLoad(Localidad listLocalidad[], int lenLocalidad, Zona listZona[],
+		int lenZona, Censista listCensista[], int lenCensista);
 #endif /* ZONA_H_ */

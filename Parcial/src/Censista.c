@@ -236,7 +236,7 @@ int printCensistas(Censista listCensista[], int lenCensista) {
 
 	if (listCensista != NULL && lenCensista > 0) {
 		printf(
-				"\n==============================================================================================================================\n                                              Listado de Pasajeros: \n==============================================================================================================================");
+				"\n==============================================================================================================================\n                                              Listado de Censistas: \n==============================================================================================================================");
 		printf(
 				"\nID           NOMBRE           APELLIDO           EDAD           FECHA DE NACIMIENTO           DIRECCION              ESTADO\n==============================================================================================================================");
 		for (i = 0; i < lenCensista; i++) {
@@ -293,9 +293,9 @@ void hardCodeCensistas(Censista list[], int len) {
 
 	{ 444, "Libertador" } };
 
-	char status[][10] = { "ACTIVO", "INACTIVO", "LIBERADO", "INACTIVO",
-				"ACTIVO", "INACTIVO", "LIBERADO", "INACTIVO", "LIBERADO", "ACTIVO", "LIBERADO",
-				"ACTIVO", "LIBERADO", "INACTIVO", "ACTIVO" };
+	char status[][10] = { "ACTIVO", "INACTIVO", "ACTIVO", "INACTIVO",
+				"ACTIVO", "INACTIVO", "ACTIVO", "INACTIVO", "ACTIVO", "ACTIVO", "ACTIVO",
+				"ACTIVO", "ACTIVO", "INACTIVO", "ACTIVO" };
 	int i;
 
 	for (i = 0; i < len; i++) {
