@@ -53,13 +53,14 @@ int initCensistas(Censista list[], int len) {
 }
 
 int addCensista(Censista listCensista[], int lenCensista, int id, char name[],
-		char lastName[], int age, FechaNacimiento date, Direccion address) {
+		char lastName[], int age, int day, int month, int year,
+		int streetNumber, char streetName[]) {
 	int resultAdd = -1;
 	int indexEmpty;
 
 	if (listCensista != NULL && lenCensista > 0) {
 
-		indexEmpty = findEmptyIndex(listCensista, lenCensista);
+		indexEmpty = findCensistaEmptyIndex(listCensista, lenCensista);
 		if (indexEmpty != -1) {
 			if (confirmOperation(
 					"\nDesea confirmar la operacion? 1 para si - 2 para no",
@@ -68,35 +69,35 @@ int addCensista(Censista listCensista[], int lenCensista, int id, char name[],
 				strcpy(listCensista[indexEmpty].name, name);
 				strcpy(listCensista[indexEmpty].lastName, lastName);
 				listCensista[indexEmpty].age = age;
-				listCensista[indexEmpty].dateOfBirth = date;
-				listCensista[indexEmpty].address = address;
+				listCensista[indexEmpty].dateOfBirth.day = day;
+				listCensista[indexEmpty].dateOfBirth.month = month;
+				listCensista[indexEmpty].dateOfBirth.year = year;
+				listCensista[indexEmpty].address.numero = streetNumber;
+				strcpy(listCensista[indexEmpty].address.calle, streetName);
+				strcpy(listCensista[indexEmpty].status, "ACTIVO");
 				listCensista[indexEmpty].isEmpty = TAKEN;
 				resultAdd = 0;
 			}
 		}
 	}
-
 	return resultAdd;
 }
 
 int getCensistaData(Censista CensistaList[], int CensistaLen,
-		int *incrementalId, char name[], char lastName[], int *age,
-		FechaNacimiento date, Direccion address) {
+		int *incrementalId, char name[], char lastName[], int *age, int *day,
+		int *month, int *year, int *streetNumber, char streetName[]) {
 	int resultGetData = -1;
 	int auxId;
 	auxId = utn_getIncrementalId(*incrementalId);
 	int resultName = 0;
 	int resultLastName = 0;
 	int resultAge = 0;
-	int resultDate = 0;
-	int resultAddress;
+	int resultDay = 0;
+	int resultMonth = 0;
+	int resultYear = 0;
+	int resultStreetName = 0;
+	int resultStreetNumber = 0;
 	int lastResult = -1;
-//	int maxRetries = 2;
-//	int flagFlyCode = -1;
-//	char auxStreet[51];
-//	int auxStreetNumber;
-//	FechaNacimiento auxBirthDate;
-//	Direccion auxAddress;
 
 	if (CensistaList != NULL && CensistaLen > 0) {
 		resultName = utn_getArrayCharAlphabetic(name, "\nIngrese nombre: ",
@@ -112,45 +113,54 @@ int getCensistaData(Censista CensistaList[], int CensistaLen,
 								100, 18, 2);
 				if (resultAge == 0) {
 
-					if (utn_getInt(&date.day, "\nIngrese el día de nacimiento: ",
-							"\nError! el día no es válido, debe ser entre 1 y 31 ",
-							31, 1, 2) == 0
-							&& utn_getInt(&date.month,
-									"\nIngrese el mes de nacimiento: ",
-									"\nError! el mes no es válido, debe ser entre 1 y 12 ",
-									12, 1, 2) == 0
-							&& utn_getInt(&date.year,
-									"\nIngrese el año de nacimiento: ",
-									"\nError! el año no es válido, debe ser entre 1922 y 2004 ",
-									2004, 1922, 2) == 0) {
-						resultDate = 0;
-						if (!resultDate) {
-							if (utn_getArrayCharAlphabetic(address.calle,
-									"\nIngrese el nombre de la calle: ",
-									"\nError! El nombre no es válido: ", 2) == 0
-									&& utn_getInt(&address.numero,
-											"\nIngrese el número de la calle: ",
-											"\nError! el mes no es válido, debe ser entre 1 y 10900 ",
-											10900, 1, 2) == 0) {
-								resultAddress = 0;
+					resultDay =
+							utn_getInt(day, "\nIngrese el día de nacimiento: ",
+									"\nError! el día no es válido, debe ser entre 1 y 31 ",
+									31, 1, 2);
+					if (resultDay == 0) {
+						resultMonth =
+								utn_getInt(month,
+										"\nIngrese el mes de nacimiento: ",
+										"\nError! el mes no es válido, debe ser entre 1 y 12 ",
+										12, 1, 2);
+						if (resultMonth == 0) {
+							resultYear =
+									utn_getInt(year,
+											"\nIngrese el año de nacimiento: ",
+											"\nError! el año no es válido, debe ser entre 1922 y 2004 ",
+											2004, 1922, 2);
+							if (resultYear == 0) {
+								resultStreetName = utn_getArrayCharAlphabetic(
+										streetName,
+										"\nIngrese el nombre de la calle: ",
+										"\nError! El nombre no es válido: ", 2);
+								if (resultStreetName == 0) {
+									resultStreetNumber =
+											utn_getInt(streetNumber,
+													"\nIngrese el número de la calle: ",
+													"\nError! el mes no es válido, debe ser entre 1 y 10900 ",
+													10900, 1, 2);
+									if (resultStreetNumber == 0) {
+										lastResult = 0;
+									} else {
+										printf(
+												"\nError en la carga de la dirección.");
+									}
+								}
 							}
-						} else {
-							printf("\nError en la carga de la dirección.");
-						}
-						if (!resultAddress) {
-							lastResult = 0;
 						}
 					}
 				}
 			}
 		}
-		if(!lastResult){
+	}
+	if (!lastResult) {
 		printf(
 				"\n=======================================================================================================================");
 		printf(
 				"\nUsted ha ingresado los siguientes datos:\n\nNombre: %s | Apellido: %s | Edad: %d  | Fecha de Nacimiento: %d/%d/%d | Direccion: %s %d",
-				name, lastName, *age, date.day, date.month, date.year,
-				address.calle, address.numero);
+				name, lastName, *age, *day, *month, *year, streetName,
+				*streetNumber);
 		printf(
 				"\n=======================================================================================================================\n");
 		*incrementalId = auxId;
@@ -159,7 +169,6 @@ int getCensistaData(Censista CensistaList[], int CensistaLen,
 		printf("\nError en la carga de censista.");
 	}
 
-}
 	return resultGetData;
 }
 
@@ -178,7 +187,7 @@ int findCensistaById(Censista list[], int len, int id) {
 	return resultFind;
 }
 
-int findEmptyIndex(Censista list[], int len) {
+int findCensistaEmptyIndex(Censista list[], int len) {
 	int index = -1;
 	int i;
 	if (list != NULL && len > 0) {
@@ -227,17 +236,18 @@ int printCensistas(Censista listCensista[], int lenCensista) {
 
 	if (listCensista != NULL && lenCensista > 0) {
 		printf(
-				"\n=================================================================================================================\n                                              Listado de Pasajeros: \n=================================================================================================================");
+				"\n==============================================================================================================================\n                                              Listado de Pasajeros: \n==============================================================================================================================");
 		printf(
-				"\nID           NOMBRE           APELLIDO           EDAD           FECHA DE NACIMIENTO           DIRECCION\n=================================================================================================================");
+				"\nID           NOMBRE           APELLIDO           EDAD           FECHA DE NACIMIENTO           DIRECCION              ESTADO\n==============================================================================================================================");
 		for (i = 0; i < lenCensista; i++) {
 
 			if (listCensista[i].isEmpty == TAKEN) {
 				printCensista(listCensista[i]);
+				printf(
+						"\n_______________________________________________________________________________________________________________________________\n");
+				qty_Censistas++;
 			}
-			printf(
-					"\n_________________________________________________________________________________________________________________\n");
-			qty_Censistas++;
+
 		}
 
 		if (qty_Censistas > 0) {
@@ -249,11 +259,11 @@ int printCensistas(Censista listCensista[], int lenCensista) {
 
 void printCensista(Censista Censista) {
 
-	printf("\n%3d %13s %17s %20d %22d/%d/%d %27s %d", Censista.id,
+	printf("\n%3d %13s %17s %15d %17d/%d/%d %21s %d %21s", Censista.id,
 			Censista.name, Censista.lastName, Censista.age,
 			Censista.dateOfBirth.day, Censista.dateOfBirth.month,
 			Censista.dateOfBirth.year, Censista.address.calle,
-			Censista.address.numero);
+			Censista.address.numero, Censista.status);
 }
 
 void hardCodeCensistas(Censista list[], int len) {
@@ -275,24 +285,17 @@ void hardCodeCensistas(Censista list[], int len) {
 
 	Direccion address[] = {
 
-	{ 1555, "Nicaragua" },
-	{ 2023, "Santa Fe" },
-	{ 5456, "Fitz Roy" },
-	{ 5556, "Anchorena" },
-			{ 1001, "Honduras" },
-			{ 3232, "Aguero" },
-			{ 1145, "Carranza" },
-			{ 6312, "Bonpland" },
-			{ 1136, "Santos Dumont" },
-			{
-			114, "Cabildo" },
-			{ 3301, "Donado" },
-			{ 1147, "Holmberg" },
-			{ 555,
-			"Charlone" },
-			{ 2680, "Conesa" },
+	{ 1555, "Nicaragua" }, { 2023, "Santa Fe" }, { 5456, "Fitz Roy" }, { 5556,
+			"Anchorena" }, { 1001, "Honduras" }, { 3232, "Aguero" }, { 1145,
+			"Carranza" }, { 6312, "Bonpland" }, { 1136, "Santos Dumont" }, {
+			114, "Cabildo" }, { 3301, "Donado" }, { 1147, "Holmberg" }, { 555,
+			"Charlone" }, { 2680, "Conesa" },
 
-			{ 444, "Libertador" } };
+	{ 444, "Libertador" } };
+
+	char status[][10] = { "ACTIVO", "INACTIVO", "LIBERADO", "INACTIVO",
+				"ACTIVO", "INACTIVO", "LIBERADO", "INACTIVO", "LIBERADO", "ACTIVO", "LIBERADO",
+				"ACTIVO", "LIBERADO", "INACTIVO", "ACTIVO" };
 	int i;
 
 	for (i = 0; i < len; i++) {
@@ -302,6 +305,7 @@ void hardCodeCensistas(Censista list[], int len) {
 		list[i].age = age[i];
 		list[i].dateOfBirth = dates[i];
 		list[i].address = address[i];
+		strcpy(list[i].status, status[i]);
 		list[i].isEmpty = TAKEN;
 	}
 
@@ -312,8 +316,8 @@ int modifyCensista(Censista list[], int len, int id) {
 	int atLeastOneRegister = -1;
 	int optionToModify;
 	int index;
-	char auxName[51];
-	char auxLastName[51];
+	char auxName[52];
+	char auxLastName[52];
 
 	if (list != NULL && len > 0) {
 		atLeastOneRegister = checkAtLeastOneRegister(list, len);

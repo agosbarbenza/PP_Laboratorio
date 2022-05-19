@@ -30,7 +30,7 @@ int utn_getIncrementalId(int idToIncrement);
  *
  */
 void utn_showMenu(char msg[], char optionOne[], char optionTwo[],
-		char optionThree[], char optionFour[], char optionFive[]);
+		char optionThree[], char optionFour[], char optionFive[], char optionSix[], char optionSeven[], char optionEight[], char optionNine[]);
 
 /** \brief Validates if an array of char is alphabetic
  *

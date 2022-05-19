@@ -5,7 +5,6 @@
  *      Author: agosb
  */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -109,12 +108,11 @@ int utn_validateFloat(char *number) {
 int utn_getInt(int *pNumber, char *msg, char *errorMsg, int max, int min,
 		int maxRetries) {
 
-	char auxNumber[51];
+	char auxNumber[52];
 	int stringToNumber = -2;
 	int result;
 	int validation = -2;
 	result = -1;
-
 	if (pNumber != NULL && max >= min && maxRetries >= 0) {
 		do {
 			printf("%s\n", msg);
@@ -171,9 +169,8 @@ int utn_getFloat(float *pNumber, char *msg, char *errorMsg, int max, int min,
 int utn_getArrayCharAlphabetic(char *array, char *msg, char *errorMsg,
 		int maxRetries) {
 
-	char auxArray[100];
+	char auxArray[52];
 	int result = 0;
-
 	if (array != NULL && maxRetries >= 0) {
 		do {
 			printf("%s\n", msg);
@@ -197,7 +194,7 @@ int utn_getArrayCharAlphabetic(char *array, char *msg, char *errorMsg,
 int utn_getArrayCharAlphanumeric(char *array, char *msg, char *errorMsg,
 		int maxRetries) {
 
-	char auxArray[51];
+	char auxArray[52];
 	int result = 0;
 
 	if (array != NULL && maxRetries >= 0) {
@@ -231,13 +228,15 @@ int utn_getIncrementalId(int idToIncrement) {
 }
 
 void utn_showMenu(char msg[], char optionOne[], char optionTwo[],
-		char optionThree[], char optionFour[], char optionFive[]) {
+		char optionThree[], char optionFour[], char optionFive[],
+		char optionSix[], char optionSeven[], char optionEight[], char optionNine[]) {
 	printf(
 			"\n========================================\n %s\n                  Menu \n========================================\nIngrese una opcion: \n",
 			msg);
 	printf(
-			"\n1) %s\n2) %s \n3) %s \n4) %s\n5) %s\n========================================",
-			optionOne, optionTwo, optionThree, optionFour, optionFive);
+			"\n1) %s\n2) %s \n3) %s \n4) %s\n5) %s\n6) %s\n7) %s\n8) %s\n9) %s\n========================================",
+			optionOne, optionTwo, optionThree, optionFour, optionFive,
+			optionSix, optionSeven, optionEight, optionNine);
 }
 
 /*
@@ -326,7 +325,7 @@ double factorial(double num) {
  */
 float utn_calculateAverage(float accumulatedValue, int qty) {
 	float resultAverage = -1;
-	if(accumulatedValue > 0 && qty > 0){
+	if (accumulatedValue > 0 && qty > 0) {
 		resultAverage = accumulatedValue / qty;
 	}
 	return resultAverage;

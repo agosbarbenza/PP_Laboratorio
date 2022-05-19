@@ -8,6 +8,9 @@
 #ifndef CENSISTA_H_
 #define CENSISTA_H_
 
+#include "FechaNacimiento.h"
+#include "Direccion.h"
+
 typedef struct{
 	int id;
 	char name[51];
@@ -15,6 +18,7 @@ typedef struct{
 	int age;
 	FechaNacimiento dateOfBirth;
 	Direccion address;
+	char status[10];
 	int isEmpty;
 }Censista;
 
@@ -43,7 +47,7 @@ int initCensistas(Censista [], int );
 free space] - (0) if Ok
 */
 int addCensista(Censista listCensista[], int lenCensista, int id, char name[],
-		char lastName[], int age, FechaNacimiento date, Direccion address);
+		char lastName[], int age, int day, int month, int year, int streetNumber, char streetName[]);
 
 /** \brief Gets Censista data from user and adds in a existing list of Censistas the values received as parameters
  * in the first empty position
@@ -62,7 +66,7 @@ free space] - (0) if Ok
 */
 int getCensistaData(Censista CensistaList[], int CensistaLen,
 		int *incrementalId, char name[], char lastName[], int *age,
-		FechaNacimiento date, Direccion address);
+		int *day, int *month, int *year, int *streetNumber, char streetName[]);
 /** \brief find a Censista by Id en returns the index position in array.
 *
 * \param list Censista*
@@ -115,7 +119,7 @@ int printCensistas(Censista listCensista[], int lenCensista);
  * \return int (-1) if Error, int index if OK
  *
  */
-int findEmptyIndex(Censista list[], int len);
+int findCensistaEmptyIndex(Censista list[], int len);
 
 /** \brief Hardcodes a Censista's array with 15 Censistas
  *
